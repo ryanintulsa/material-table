@@ -5,7 +5,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports["default"] = void 0;
 
@@ -35,72 +35,76 @@ var _Tooltip = _interopRequireDefault(require("@material-ui/core/Tooltip"));
 
 /* eslint-enable no-unused-vars */
 var MTableAction =
-    /*#__PURE__*/
-    function (_React$Component) {
-        (0, _inherits2["default"])(MTableAction, _React$Component);
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2["default"])(MTableAction, _React$Component);
 
-        function MTableAction() {
-            (0, _classCallCheck2["default"])(this, MTableAction);
-            return (0, _possibleConstructorReturn2["default"])(this, (0, _getPrototypeOf2["default"])(MTableAction).apply(this, arguments));
+  function MTableAction() {
+    (0, _classCallCheck2["default"])(this, MTableAction);
+    return (0, _possibleConstructorReturn2["default"])(this, (0, _getPrototypeOf2["default"])(MTableAction).apply(this, arguments));
+  }
+
+  (0, _createClass2["default"])(MTableAction, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var action = this.props.action;
+
+      if (typeof action === 'function') {
+        action = action(this.props.data);
+
+        if (!action) {
+          return null;
         }
+      }
 
-        (0, _createClass2["default"])(MTableAction, [{
-            key: "render",
-            value: function render() {
-                var _this = this;
+      if (action.hidden) {
+        return null;
+      }
 
-                var action = this.props.action;
+      var handleOnClick = function handleOnClick(event) {
+        if (action.onClick) {
+          action.onClick(event, _this.props.data);
+          event.stopPropagation();
+        }
+      };
 
-                if (typeof action === 'function') {
-                    action = action(this.props.data);
+      var button = React.createElement(_IconButton["default"], {
+        size: this.props.size,
+        color: "inherit",
+        disabled: action.disabled,
+        onClick: function onClick(event) {
+          return handleOnClick(event);
+        }
+      }, typeof action.icon === "string" ? React.createElement(_Icon["default"], action.iconProps, action.icon) : React.createElement(action.icon, (0, _extends2["default"])({}, action.iconProps, {
+        disabled: action.disabled
+      })));
 
-                    if (!action) {
-                        return null;
-                    }
-                }
-
-                if (action.hidden) {
-                    return null;
-                }
-
-                var handleOnClick = function handleOnClick(event) {
-                    if (action.onClick) {
-                        action.onClick(event, _this.props.data);
-                        event.stopPropagation();
-                    }
-                };
-
-                var button = React.createElement(_IconButton["default"], {
-                    size: this.props.size,
-                    color: "inherit",
-                    disabled: action.disabled,
-                    onClick: function onClick(event) {
-                        return handleOnClick(event);
-                    }
-                }, typeof action.icon === "string" ? React.createElement(_Icon["default"], action.iconProps, action.icon) : React.createElement(action.icon, (0, _extends2["default"])({}, action.iconProps, {
-                    disabled: action.disabled
-                })));
-
-                if (action.tooltip) {
-                    return React.createElement(_Tooltip["default"], {
-                        title: action.tooltip
-                    }, button);
-                } else {
-                    return button;
-                }
-            }
-        }]);
-        return MTableAction;
-    }(React.Component);
+      if (action.tooltip) {
+        // fix for issue #1049
+        // https://github.com/mbrn/material-table/issues/1049
+        return action.disabled ? React.createElement(_Tooltip["default"], {
+          title: action.tooltip
+        }, React.createElement("span", null, button)) : React.createElement(_Tooltip["default"], {
+          title: action.tooltip
+        }, button);
+      } else {
+        return button;
+      }
+    }
+  }]);
+  return MTableAction;
+}(React.Component);
 
 MTableAction.defaultProps = {
-    action: {},
-    data: {}
+  action: {},
+  data: {}
 };
 MTableAction.propTypes = {
-    action: _propTypes["default"].oneOfType([_propTypes["default"].func, _propTypes["default"].object]).isRequired,
-    data: _propTypes["default"].oneOfType([_propTypes["default"].object, _propTypes["default"].arrayOf(_propTypes["default"].object)]),
-    size: _propTypes["default"].string
+  action: _propTypes["default"].oneOfType([_propTypes["default"].func, _propTypes["default"].object]).isRequired,
+  data: _propTypes["default"].oneOfType([_propTypes["default"].object, _propTypes["default"].arrayOf(_propTypes["default"].object)]),
+  size: _propTypes["default"].string
 };
 var _default = MTableAction;
 exports["default"] = _default;
