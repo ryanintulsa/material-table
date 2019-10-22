@@ -297,20 +297,20 @@ export default class DataManager {
           .sort((a, b) => a.tableData.columnOrder - b.tableData.columnOrder)
           .filter(column => column.tableData.groupOrder === undefined);
       let effectiveStart = 0;
-        let numVisibleCols = 0;
-        do {
-            while (sorted[effectiveStart].hidden) {
-                effectiveStart++;
+      let numVisibleCols = 0;
+      do {
+        while (sorted[effectiveStart].hidden) {
+          effectiveStart++;
         }
       }
-        while (numVisibleCols < start);
+      while (numVisibleCols < start);
 
       let effectiveEnd = effectiveStart;
       for (let numVisibleCols = 0; numVisibleCols < (end - start); effectiveEnd++) {
-          while (sorted[effectiveEnd].hidden) {
-              effectiveEnd++;
-          }
-          numVisibleCols++;
+        while (sorted[effectiveEnd].hidden) {
+          effectiveEnd++;
+        }
+        numVisibleCols++;
       }
       const colsToMov = sorted.slice(effectiveStart, effectiveEnd + 1);
 
