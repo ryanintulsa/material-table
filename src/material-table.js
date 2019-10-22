@@ -444,7 +444,7 @@ export default class MaterialTable extends React.Component {
         : this.state.data.length;
 
       return (
-        <Table>
+        <Table stickyHeader>
           <TableFooter style={{ display: 'grid' }}>
             <TableRow>
               <props.components.Pagination
@@ -531,7 +531,7 @@ export default class MaterialTable extends React.Component {
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
                   <div style={{ maxHeight: props.options.maxBodyHeight, minHeight: props.options.minBodyHeight, overflowY: 'auto' }}>
-                    <Table>
+                    <Table stickyHeader>
                       {props.options.header &&
                         <props.components.Header
                           localization={{ ...MaterialTable.defaultProps.localization.header, ...this.props.localization.header }}
@@ -559,6 +559,11 @@ export default class MaterialTable extends React.Component {
                           isTreeData={this.props.parentChildData !== undefined}
                           draggable={props.options.draggable}
                           thirdSortClick={props.options.thirdSortClick}
+                          onFilterChanged={this.onFilterChange}
+                          options={props.options}
+                          actions={props.actions}
+                          components={props.components}
+                          detailPanel={props.detailPanel}
                         />
                       }
                       <props.components.Body
@@ -574,7 +579,6 @@ export default class MaterialTable extends React.Component {
                         options={props.options}
                         getFieldValue={this.dataManager.getFieldValue}
                         isTreeData={this.props.parentChildData !== undefined}
-                        onFilterChanged={this.onFilterChange}
                         onRowSelected={this.onRowSelected}
                         onToggleDetailPanel={this.onToggleDetailPanel}
                         onGroupExpandChanged={this.onGroupExpandChanged}

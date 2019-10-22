@@ -131,22 +131,6 @@ class MTableBody extends React.Component {
     }
     return (
       <TableBody>
-        {this.props.options.filtering &&
-          <this.props.components.FilterRow
-            columns={this.props.columns.filter(columnDef => { return !columnDef.hidden })}
-            icons={this.props.icons}
-            emptyCell={this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)}
-            hasActions={(this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)}
-            actionsColumnIndex={this.props.options.actionsColumnIndex}
-            onFilterChanged={this.props.onFilterChanged}
-            selection={this.props.options.selection}
-            localization={{ ...MTableBody.defaultProps.localization.filterRow, ...this.props.localization.filterRow }}
-            hasDetailPanel={!!this.props.detailPanel}
-            isTreeData={this.props.isTreeData}
-            filterCellStyle={this.props.options.filterCellStyle}
-          />
-        }
-
         {this.props.showAddRow && this.props.options.addRowPosition === "first" &&
           <this.props.components.EditRow
             columns={this.props.columns.filter(columnDef => { return !columnDef.hidden })}
@@ -226,7 +210,6 @@ MTableBody.propTypes = {
   showAddRow: PropTypes.bool,
   treeDataMaxLevel: PropTypes.number,
   localization: PropTypes.object,
-  onFilterChanged: PropTypes.func,
   onGroupExpandChanged: PropTypes.func,
   onToggleDetailPanel: PropTypes.func.isRequired,
   onTreeExpandChanged: PropTypes.func.isRequired,
